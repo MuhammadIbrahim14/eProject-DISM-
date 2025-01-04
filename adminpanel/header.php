@@ -1,3 +1,7 @@
+
+
+
+
 <?php
 $current_page = basename($_SERVER['PHP_SELF']);
 ?>
@@ -100,15 +104,25 @@ $current_page = basename($_SERVER['PHP_SELF']);
                             </a>
                             <div class="collapse" id="user">
                                 <ul class="nav nav-collapse">
-                                    <li class="<?php echo $current_page == 'addUser.php' ? 'active' : ''; ?>">
-                                        <a href="addUser.php">
-                                            <span class="sub-item">Add User</span>
+                                    <li>
+                                        <a data-bs-toggle="collapse" href="#users">
+                                            <span class="sub-item">Users</span>
+                                            <span class="caret"></span>
                                         </a>
-                                    </li>
-                                    <li class="<?php echo $current_page == 'viewUser.php' ? 'active' : ''; ?>">
-                                        <a href="viewUser.php">
-                                            <span class="sub-item">View User</span>
-                                        </a>
+                                        <div class="collapse" id="users">
+                                            <ul class="nav nav-collapse subnav">
+                                                <li class="<?php echo $current_page == 'addReceptionist.php' ? 'active' : ''; ?>">
+                                                    <a href="addReceptionist.php">
+                                                        <span class="sub-item">Add Receptionist</span>
+                                                    </a>
+                                                </li>
+                                                <li class="<?php echo $current_page == 'addStylist.php' ? 'active' : ''; ?>">
+                                                    <a href="addStylist.php">
+                                                        <span class="sub-item">Add Stylist</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </li>
 
                                     <li>
@@ -123,8 +137,8 @@ $current_page = basename($_SERVER['PHP_SELF']);
                                                         <span class="sub-item">Add Role</span>
                                                     </a>
                                                 </li>
-                                                <li class="<?php echo $current_page == 'viewRole.php' ? 'active' : ''; ?>">
-                                                    <a href="viewRole.php">
+                                                <li class="<?php echo $current_page == 'viewRoles.php' ? 'active' : ''; ?>">
+                                                    <a href="viewRoles.php">
                                                         <span class="sub-item">View Role</span>
                                                     </a>
                                                 </li>
@@ -660,7 +674,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="#">Account Setting</a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Logout</a>
+                                        <a class="dropdown-item" href="../logout.php">Logout</a>
                                     </li>
                                 </div>
                             </ul>
