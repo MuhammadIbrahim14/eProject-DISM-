@@ -243,18 +243,8 @@ $current_page = basename($_SERVER['PHP_SELF']);
                     <div class="collapse" id="forms">
                         <ul class="nav nav-collapse">
                             <li>
-                                <a href="forms/forms.html">
+                                <a href="profiles.php">
                                     <span class="sub-item">Profiles</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="forms/forms.html">
-                                    <span class="sub-item">Schedules</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="forms/forms.html">
-                                    <span class="sub-item">Assignments</span>
                                 </a>
                             </li>
                         </ul>
