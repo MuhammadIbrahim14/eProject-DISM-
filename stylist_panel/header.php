@@ -1,4 +1,17 @@
 <?php
+session_start();
+if(!isset($_SESSION['IS_LOGIN'])){
+    header('location: ../signInForm.php');
+    die();
+}
+
+if(isset($_SESSION['ROLES']) && $_SESSION['ROLES'] != 'receptionist'){
+    header('location: ..stylist_panel/index.php');
+    die();
+}
+?>
+
+<?php
 $current_page = basename($_SERVER['PHP_SELF']);
 ?>
 
@@ -474,7 +487,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="#">Account Setting</a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Logout</a>
+                                        <a class="dropdown-item" href="../logout.php">Logout</a>
                                     </li>
                                 </div>
                             </ul>

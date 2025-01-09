@@ -12,8 +12,8 @@ $brand_row = mysqli_query($connect, $brand_select);
 <!-- FORM  -->
 <div class="col-sm-6 col-xl-4" style="margin: 100px;">
     <div class="bg-light rounded h-100 p-4">
-        <h2 class="mb-4">User Form</h2>
-        <form>
+        <h2 class="mb-4">Add Female Products</h2>
+        <form method="post" enctype="multipart/form-data">
             <h6 class="mb-4">Select</h6>
             <select name="c_id" class="form-select mb-3" aria-label="Default select example">
                 <option selected>Select Category</option>
@@ -55,12 +55,12 @@ $brand_row = mysqli_query($connect, $brand_select);
 </div>
 
 <?php
-if (isset($_POST['product_btn'])) {
-    $product_name = $_POST['product_name'];
-    $product_price = $_POST['product_price'];
-    $product_model = $_POST['product_description'];
-    $category_id = $_POST['c_id'];
-    $brand_id = $_POST['b_id'];
+if (isset($_POST['Product_btn'])) {
+    $product_name = mysqli_real_escape_string($connect, $_POST['product_name']);
+    $product_price = mysqli_real_escape_string($connect, $_POST['product_price']);
+    $product_descrip = mysqli_real_escape_string($connect, $_POST['product_description']);
+    $category_id = mysqli_real_escape_string($connect, $_POST['c_id']);
+    $brand_id = mysqli_real_escape_string($connect, $_POST['b_id']);
 
     $product_image = $_FILES['product_image'];
     $image_name = $product_image['name'];
@@ -68,23 +68,31 @@ if (isset($_POST['product_btn'])) {
     $image_size = $product_image['size'];
     $image_type = $product_image['type'];
 
-    // $directory = 'product_images/';
-    $location = 'product_images/F_product/' . $image_name;
+    // Ensure the directory exists
+    $directory = 'product_images/F_product/';
+    if (!is_dir($directory)) {
+        mkdir($directory, 0777, true);
+    }
+    $location = $directory . $image_name;
 
-    move_uploaded_file($image_tmpname, $location);
+    // Move the uploaded file to the specified location
+    if (move_uploaded_file($image_tmpname, $location)) {
+        $insert_product = "INSERT INTO `fproduct`(`productName`, `productPrice`, `productDescription`, `productImage`, `category_id`, `brand_id`) 
+        VALUES ('$product_name','$product_price','$product_descrip','$image_name','$category_id','$brand_id')";
 
-    $insert_product = "INSERT INTO `F_product`(`product_name`, `product_price`, `product_description`, `product_image`, `category_id`, `brand_id`) 
-    VALUES ('$product_name','$product_price','$product_model','$product_spec','$image_name','$category_id','$brand_id')";
-
-    $done = mysqli_query($connect, $insert_product);
-    if ($done) {
-        echo "<script>
-        alert('Product Inserted!');
-        window.location.href = 'viewProduct.php';
-        </script>";
+        $done = mysqli_query($connect, $insert_product);
+        if ($done) {
+            echo "<script>
+            alert('Product Inserted!');
+            window.location.href = 'viewFproduct.php';
+            </script>";
+        } else {
+            echo "<script>alert('Failed to insert product');</script>";
+        }
+    } else {
+        echo "<script>alert('Failed to upload image');</script>";
     }
 }
-
 ?>
 
 

@@ -1,5 +1,9 @@
 <?php
-include("header.php")
+include("header.php");
+
+    $c_select = "SELECT COUNT(*) AS c FROM users WHERE role_id = 4";
+    $c_query = mysqli_query($connect, $c_select);
+    $c_count = mysqli_fetch_assoc($c_query);
 ?>
 
 <div class="container">
@@ -165,7 +169,7 @@ include("header.php")
                       </div>
                       <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
-                          <h4 class="card-title">1,294</h4>
+                          <h4 class="card-title"><?php echo $c_count['c'] ?></h4>
                         </div>
                       </div>
                       <button class="btn btn-success" style="margin: 15px;"><a href="profiles.php" style="text-decoration: none; color: white;">View</a></button>

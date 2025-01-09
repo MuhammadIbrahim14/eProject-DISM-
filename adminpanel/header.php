@@ -1,8 +1,17 @@
-
-
-
-
 <?php
+session_start();
+
+if(!isset($_SESSION['user'])){
+    header("location: ../signInForm.php");
+}
+
+if($_SESSION['role_id'] == 2){
+    header("location: ../userpanel/index.php");
+}
+?>
+<?php
+include 'preloader.php';
+include 'connection.php';
 $current_page = basename($_SERVER['PHP_SELF']);
 ?>
 
@@ -17,9 +26,14 @@ $current_page = basename($_SERVER['PHP_SELF']);
         name="viewport" />
     <link
         rel="icon"
-        href="assets/img/kaiadmin/favicon.ico"
+        href="../logo.png"
         type="image/x-icon" />
     <!-- Fonts and icons -->
+
+
+
+
+
     <script src="assets/js/plugin/webfont/webfont.min.js"></script>
     <script>
         WebFont.load({
@@ -59,10 +73,10 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 <div class="logo-header" data-background-color="dark">
                     <a href="index.html" class="logo">
                         <img
-                            src="assets/img/kaiadmin/logo_light.svg"
+                            src="../logo.png"
                             alt="navbar brand"
                             class="navbar-brand"
-                            height="20" />
+                            height="80" />
                     </a>
                     <div class="nav-toggle">
                         <button class="btn btn-toggle toggle-sidebar">
@@ -111,14 +125,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
                                         </a>
                                         <div class="collapse" id="users">
                                             <ul class="nav nav-collapse subnav">
-                                                <li class="<?php echo $current_page == 'addReceptionist.php' ? 'active' : ''; ?>">
-                                                    <a href="addReceptionist.php">
-                                                        <span class="sub-item">Add Receptionist</span>
-                                                    </a>
-                                                </li>
-                                                <li class="<?php echo $current_page == 'addStylist.php' ? 'active' : ''; ?>">
-                                                    <a href="addStylist.php">
-                                                        <span class="sub-item">Add Stylist</span>
+                                                <li class="<?php echo $current_page == 'addEmployee.php' ? 'active' : ''; ?>">
+                                                    <a href="addEmployee.php">
+                                                        <span class="sub-item">Add Employee</span>
                                                     </a>
                                                 </li>
                                             </ul>
@@ -220,12 +229,17 @@ $current_page = basename($_SERVER['PHP_SELF']);
                                             </ul>
                                         </div>
                                     </li>
-                                    <li>
-                                        <a href="Inventory Management/viewProduct.php">
-                                            <span class="sub-item">View Products</span>
+                                    <li class="<?php echo $current_page == 'viewMproduct.php' ? 'active' : ''; ?>">
+                                        <a href="viewMproduct.php">
+                                            <span class="sub-item">View Male Products</span>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li class="<?php echo $current_page == 'viewFproduct.php' ? 'active' : ''; ?>">
+                                        <a href="viewFproduct.php">
+                                            <span class="sub-item">View Female Products</span>
+                                        </a>
+                                    </li>
+                                    <li class="<?php echo $current_page == 'orders.php' ? 'active' : ''; ?>">
                                         <a href="Inventory Management/orders.php">
                                             <span class="sub-item">Orders Management</span>
                                         </a>
@@ -634,7 +648,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                                 </div>
                                 <span class="profile-username">
                                     <span class="op-7">Hi,</span>
-                                    <span class="fw-bold">Hizrian</span>
+                                    <span class="fw-bold"><?php echo "Welcome " . $_SESSION['user'] ?></span>
                                 </span>
                             </a>
                             <ul class="dropdown-menu dropdown-user animated fadeIn">
